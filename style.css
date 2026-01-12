@@ -1,0 +1,410 @@
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0a0a1a;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Game Container - 9:16 Portrait */
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 100vh * 9 / 16;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#game-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* HUD */
+#hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#squad-count {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 8px 16px;
+    border-radius: 25px;
+    border: 2px solid rgba(100, 200, 255, 0.5);
+}
+
+#squad-icon {
+    font-size: 24px;
+}
+
+#squad-number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px #00bfff;
+}
+
+/* Boss HP Bar */
+#boss-hp-container {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#boss-hp-bar {
+    width: 100%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    border: 2px solid #ff4444;
+    overflow: hidden;
+}
+
+#boss-hp-fill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #ff6666 0%, #cc0000 100%);
+    transition: width 0.1s ease-out;
+}
+
+#boss-hp-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff4444;
+    text-shadow: 0 0 5px #ff0000, 2px 2px 0 #000;
+}
+
+/* Start Screen */
+#start-screen {
+    background: url('start-screen.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+@media (max-width: 768px) {
+    #start-screen {
+        background-image: url('start-screen-mobile.png');
+    }
+}
+
+@media (max-width: 768px) {
+    #start-screen {
+        background-image: url('start-screen-mobile.png');
+    }
+}
+
+#start-screen h1 {
+    display: none; /* Title is in the image */
+}
+
+#start-btn {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px 60px;
+    font-size: 32px;
+    font-family: 'Arial Black', 'Segoe UI Black', sans-serif;
+    color: #fff;
+    background: linear-gradient(180deg, #29abe2 0%, #0071bc 100%);
+    border: 4px solid #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 0 #005a96, 0 15px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.1s, box-shadow 0.1s, filter 0.1s;
+    white-space: nowrap;
+    animation: btnPulse 2s infinite;
+    z-index: 1000;
+    pointer-events: auto;
+}
+
+#start-btn:hover {
+    filter: brightness(1.1);
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 8px 0 #005a96, 0 20px 25px rgba(0, 0, 0, 0.4);
+}
+
+#start-btn:active {
+    transform: translateX(-50%) translateY(4px);
+    box-shadow: 0 2px 0 #005a96, 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes btnPulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
+/* Screens */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.screen.hidden {
+    display: none !important;
+}
+
+/* Other Screen Buttons (Victory/Defeat) */
+#victory-screen button,
+#defeat-screen button {
+    padding: 15px 40px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(180deg, #00bfff 0%, #0066ff 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 0 20px rgba(0, 150, 255, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 20px;
+}
+
+#victory-screen button:hover,
+#defeat-screen button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 150, 255, 0.8), 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+#victory-screen button:active,
+#defeat-screen button:active {
+    transform: scale(0.98);
+}
+
+/* Victory/Defeat Backgrounds (Keep gradients for them) */
+#victory-screen,
+#defeat-screen {
+    background: linear-gradient(180deg, rgba(10, 10, 30, 0.95) 0%, rgba(20, 20, 50, 0.95) 100%);
+}
+
+#victory-screen h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #00ff88;
+    text-shadow: 0 0 20px #00ff88, 0 0 40px #00cc66;
+    margin-bottom: 20px;
+}
+
+#defeat-screen h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #ff4444;
+    text-shadow: 0 0 20px #ff4444, 0 0 40px #cc0000;
+    margin-bottom: 20px;
+}
+
+#victory-stats {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#victory-stats p {
+    font-size: 20px;
+    color: #fff;
+    margin: 10px 0;
+}
+
+#victory-stats span {
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+/* Defeat Screen */
+#defeat-screen h1 {
+    color: #ff4444;
+    text-shadow: 0 0 20px #ff4444, 0 0 40px #cc0000;
+}
+
+#defeat-screen p {
+    font-size: 20px;
+    color: #aaa;
+    margin-bottom: 30px;
+}
+
+/* Floating Damage Numbers */
+.damage-number {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 2px 2px 0 #000, -1px -1px 0 #000;
+    pointer-events: none;
+    animation: floatUp 0.8s ease-out forwards;
+    z-index: 50;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(1.2);
+    }
+}
+
+/* Gate Number Display */
+.gate-number {
+    position: absolute;
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: 3px 3px 0 #000, -2px -2px 0 #000;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.gate-number.positive {
+    color: #00ff88;
+}
+
+.gate-number.negative {
+    color: #ff4444;
+}
+
+/* Weapon Upgrade Flash */
+.upgrade-flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+    pointer-events: none;
+    animation: flashOut 0.5s ease-out forwards;
+    z-index: 60;
+}
+
+@keyframes flashOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Weapon Name Display */
+#weapon-display {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 25px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 200, 0, 0.5);
+    z-index: 10;
+}
+
+#weapon-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffcc00;
+    text-transform: uppercase;
+}
+
+/* Loading indicator */
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 24px;
+}
+
+/* Enemy Damage Flash - red vignette */
+@keyframes damage-flash-anim {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Damage Taken Number Animation */
+@keyframes damage-taken-anim {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-20px) scale(1.2);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-60px) scale(0.8);
+    }
+}
+
+.damage-taken {
+    font-family: 'Arial Black', sans-serif;
+}
+
+.damage-flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Squad Strike</title>
+    <link rel="icon" href="title_logo.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Game Container -->
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+
+        <!-- HUD Overlay -->
+        <div id="hud">
+            <div id="squad-count">
+                <span id="squad-icon">👥</span>
+                <span id="squad-number">1</span>
+            </div>
+        </div>
+
+        <!-- Boss HP Bar -->
+        <div id="boss-hp-container" class="hidden">
+            <div id="boss-hp-bar">
+                <div id="boss-hp-fill"></div>
+            </div>
+            <span id="boss-hp-text">1000</span>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen">
+            <h1>SQUAD<br>STRIKE</h1>
+            <button id="start-btn">TAP TO PLAY</button>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="screen hidden">
+            <h1>VICTORY!</h1>
+            <div id="victory-stats">
+                <p>Enemies Killed: <span id="enemies-killed">0</span></p>
+                <p>Boss Defeated!</p>
+            </div>
+            <button id="restart-victory-btn">PLAY AGAIN</button>
+        </div>
+
+        <!-- Defeat Screen -->
+        <div id="defeat-screen" class="screen hidden">
+            <h1>DEFEAT</h1>
+            <p>Your squad was eliminated!</p>
+            <button id="restart-defeat-btn">TRY AGAIN</button>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
