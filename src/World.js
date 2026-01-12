@@ -18,7 +18,9 @@ export class World {
         this.createMaterials();
         this.createOcean();
         this.createInitialSegments();
-        this.createCitySegments();
+
+        // Defer heavier background work for faster first paint
+        this.cityEnabled = false;
 
         scene.add(this.group);
     }
@@ -257,6 +259,12 @@ export class World {
         }
     }
 
+    enableCity() {
+        if (this.cityEnabled) return;
+        this.cityEnabled = true;
+        this.createCitySegments();
+    }
+
     createCitySegments() {
         for (let i = 0; i < this.numCitySegments; i++) {
             const z = -i * this.citySegmentLength;
@@ -339,12 +347,14 @@ export class World {
             }
         }
 
-        for (const segment of this.citySegments) {
-            segment.position.z += moveSpeed * 0.6;
+        if (this.cityEnabled) {
+            for (const segment of this.citySegments) {
+                segment.position.z += moveSpeed * 0.6;
 
-            if (segment.position.z > this.citySegmentLength) {
-                const farthestZ = this.getFarthestCityZ();
-                segment.position.z = farthestZ - this.citySegmentLength;
+                if (segment.position.z > this.citySegmentLength) {
+                    const farthestZ = this.getFarthestCityZ();
+                    segment.position.z = farthestZ - this.citySegmentLength;
+                }
             }
         }
 
@@ -391,6 +401,7 @@ export class World {
     }
 
     getFarthestCityZ() {
+        if (!this.citySegments.length) return 0;
         let minZ = Infinity;
         for (const segment of this.citySegments) {
             if (segment.position.z < minZ) {

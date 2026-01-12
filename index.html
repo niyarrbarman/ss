@@ -7,6 +7,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <title>Squad Strike</title>
+    <link rel="preload" as="image" href="start-screen.jpg" media="(min-width: 769px)">
+    <link rel="preload" as="image" href="start-screen-mobile.png" media="(max-width: 768px)">
     <link rel="icon" href="title_logo.png" type="image/png">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -34,7 +36,10 @@
 
         <!-- Start Screen -->
         <div id="start-screen" class="screen">
-            <h1>SQUAD<br>STRIKE</h1>
+            <picture class="start-bg" aria-hidden="true">
+                <source media="(max-width: 768px)" srcset="start-screen-mobile.png">
+                <img src="start-screen.jpg" alt="" decoding="async" fetchpriority="high">
+            </picture>
             <button id="start-btn">TAP TO PLAY</button>
         </div>
 

@@ -85,6 +85,14 @@ export class Game {
 
         // Show start screen
         this.ui.showStartScreen();
+
+        // Build the heavier background when the browser is idle
+        const enableCity = () => this.world.enableCity?.();
+        if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(enableCity, { timeout: 1200 });
+        } else {
+            setTimeout(enableCity, 300);
+        }
     }
 
     startGame() {
